@@ -1,13 +1,36 @@
 window.addEventListener("load", () => {
   const canvas = document.getElementById("canvas1");
   const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
+  canvas.width = window.innerWidth - 10;
   canvas.height = window.innerHeight;
-
+  const image1 = document.getElementById("img1");
   const image2 = document.getElementById("img2");
   const image3 = document.getElementById("img3");
   const image4 = document.getElementById("img4");
   const image5 = document.getElementById("img5");
+  const images = [image1, image2, image3, image4, image5];
+  let image = images[Math.floor(Math.random() * images.length)];
+  // const buttons = document.querySelectorAll(".img-button");
+  // function checkImage() {
+  //   let check = false;
+  //   buttons.forEach((button) => {
+  //     button.addEventListener("click", function (e) {
+  //       image = e.target.querySelector("img");
+  //       console.log(image);
+  //       console.log(e.target);
+  //       check = true;
+  //     });
+  //   });
+  //   if (check) {
+  //     return;
+  //   }
+  // }
+  // const images = [image1, image2, image3, image4, image5];
+  // images.forEach((img) => {
+  //   img.addEventListener("click", function(){
+  //     image = img;
+  //   });
+  // });
 
   class Particle {
     constructor(effect, x, y, color) {
@@ -38,17 +61,19 @@ window.addEventListener("load", () => {
     update() {
       this.dx = this.effect.mouse.x - this.x;
       this.dy = this.effect.mouse.y - this.y;
-      this.distance = (this.dx * this.dx + this.dy * this.dy);
+      this.distance = this.dx * this.dx + this.dy * this.dy;
       this.force = -this.effect.mouse.radius / this.distance;
-      
+
       if (this.distance < this.effect.mouse.radius) {
         this.angle = Math.atan2(this.dy, this.dx);
         this.vx = this.force * Math.cos(this.angle);
         this.vy = this.force * Math.sin(this.angle);
       }
 
-      this.x += (this.vx *= this.friction)+ (this.originX - this.x) * this.ease;
-      this.y +=  (this.vy *= this.friction) +(this.originY - this.y) * this.ease;
+      this.x +=
+        (this.vx *= this.friction) + (this.originX - this.x) * this.ease;
+      this.y +=
+        (this.vy *= this.friction) + (this.originY - this.y) * this.ease;
     }
     warp() {
       this.x = Math.random() * this.effect.width;
@@ -58,13 +83,13 @@ window.addEventListener("load", () => {
   }
 
   class Effect {
-    constructor(width, height) {
+    constructor(width, height, image) {
       this.width = width;
       this.height = height;
       this.particlesArray = [];
-      this.image = document.getElementById("img2");
-      this.centerX = this.width * 0.5;
-      this.centerY = this.height * 0.5;
+      this.image = image;
+      this.centerX = this.width * 0.35;
+      this.centerY = this.height * 0.3;
       this.x = this.centerX - this.image.width * 0.5;
       this.y = this.centerY - this.image.height * 0.5;
       this.gap = 1; //change for better resolution
@@ -72,8 +97,8 @@ window.addEventListener("load", () => {
         radius: 10000,
         x: undefined,
         y: undefined,
-      }
-      window.addEventListener('mousemove', (event) => {
+      };
+      window.addEventListener("mousemove", (event) => {
         this.mouse.x = event.x;
         this.mouse.y = event.y;
       });
@@ -102,16 +127,18 @@ window.addEventListener("load", () => {
     }
     update() {
       this.particlesArray.forEach((particle) => particle.update());
+      
     }
     warp() {
       this.particlesArray.forEach((particle) => particle.warp());
     }
   }
-  const effect = new Effect(canvas.width, canvas.height);
+  const effect = new Effect(canvas.width, canvas.height, image);
   effect.init(ctx);
 
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     effect.draw(ctx);
     effect.update();
     requestAnimationFrame(animate);
@@ -119,8 +146,8 @@ window.addEventListener("load", () => {
 
   animate();
 
-  const warpButton = document.getElementById('warpButton');
-  warpButton.addEventListener('click', function () {
+  const warpButton = document.getElementById("warpButton");
+  warpButton.addEventListener("click", function () {
     effect.warp();
   });
 });

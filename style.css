@@ -34,6 +34,27 @@ warpButton:hover{
 }
 
 img{
-    display: none;
-
+    width: 100px;
+    height: 100px;
+    
 }
+img :hover{
+    cursor: pointer;
+}
+
+.images{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    /* z-index: 10; */
+    margin: 20px;
+}
+
+/* img a{
+    align-items: center;
+} */
