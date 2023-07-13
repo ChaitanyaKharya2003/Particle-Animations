@@ -12,17 +12,18 @@ window.addEventListener("load", () => {
   class Particle {
     constructor(effect, x, y, color) {
       this.effect = effect;
-      this.x = Math.random() * this.effect.width;
-      this.y = Math.random() * this.effect.height;
-      this.size = 3;
+      this.x = x;
+      this.y = y;
+      this.size = this.effect.gap;
       this.originX = Math.floor(x);
       this.originY = Math.floor(y);
       this.color = color;
-      this.vx = Math.random() * 2 - 1;
-      this.vy = Math.random() * 2 - 1;
+      this.vx = 0;
+      this.vy = 0;
     }
 
     draw(context) {
+      context.fillStyle = this.color;
       context.fillRect(this.x, this.y, this.size, this.size);
     }
 
@@ -44,7 +45,7 @@ window.addEventListener("load", () => {
       this.centerY = this.height * 0.5;
       this.x = this.centerX - this.image.width * 0.5;
       this.y = this.centerY - this.image.height * 0.5;
-      this.gap = 5;
+      this.gap = 1;//change for better resolution
     }
     init(context) {
       context.drawImage(this.image, this.x, this.y);
@@ -74,7 +75,7 @@ window.addEventListener("load", () => {
   }
   const effect = new Effect(canvas.width, canvas.height);
   effect.init(ctx);
-
+  // console.log(effect);
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     effect.draw(ctx);
@@ -82,5 +83,5 @@ window.addEventListener("load", () => {
     requestAnimationFrame(animate);
   }
 
-  //   animate();
+    animate();
 });
