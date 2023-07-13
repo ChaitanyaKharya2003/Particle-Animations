@@ -16,13 +16,21 @@
 .controls{
     z-index: 100;
 }
-#wrapButton{
+#warpButton{
     position: absolute;
     top: 30px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 20px;
+    font-size: 30px;
     padding:5px 8px;
+    color: white;
+    background-color: black;
+    font-family: 'Bangers', cursive;
+}
+warpButton:hover{
+    cursor: pointer;
+    color: black;
+    background-color: white;
 }
 
 img{

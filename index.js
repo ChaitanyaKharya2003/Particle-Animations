@@ -12,14 +12,16 @@ window.addEventListener("load", () => {
   class Particle {
     constructor(effect, x, y, color) {
       this.effect = effect;
-      this.x = x;
-      this.y = y;
+      // play with x and y to change the effect
+      this.x = 0;
+      this.y = Math.random() * this.effect.height;
       this.size = this.effect.gap;
       this.originX = Math.floor(x);
       this.originY = Math.floor(y);
       this.color = color;
       this.vx = 0;
       this.vy = 0;
+      this.ease = 0.2;
     }
 
     draw(context) {
@@ -28,10 +30,18 @@ window.addEventListener("load", () => {
     }
 
     update() {
-      this.x += this.vx;
-      this.y += this.vy;
-      if (true) {
-      }
+      this.dx = this.effect.mouse.x - this.x;
+      this.dy = this.effect.mouse.y - this.y;
+      this.distance = (this.dx * this.dx + this.dy * this.dy);
+      this.force = -this.effect.mouse.radius / this.distance;
+      this.x += (this.originX - this.x) * this.ease;
+      this.y += (this.originY - this.y) * this.ease;
+      
+    }
+    warp() {
+      this.x = Math.random() * this.effect.width;
+      this.y = Math.random() * this.effect.height;
+      this.ease = Math.random() * 1;
     }
   }
 
@@ -45,7 +55,16 @@ window.addEventListener("load", () => {
       this.centerY = this.height * 0.5;
       this.x = this.centerX - this.image.width * 0.5;
       this.y = this.centerY - this.image.height * 0.5;
-      this.gap = 1;//change for better resolution
+      this.gap = 1; //change for better resolution
+      this.mouse = {
+        radius: 3000,
+        x: undefined,
+        y: undefined,
+      }
+      window.addEventListener('mousemove', (event) => {
+        this.mouse.x = event.x;
+        this.mouse.y = event.y;
+      });
     }
     init(context) {
       context.drawImage(this.image, this.x, this.y);
@@ -72,10 +91,13 @@ window.addEventListener("load", () => {
     update() {
       this.particlesArray.forEach((particle) => particle.update());
     }
+    warp() {
+      this.particlesArray.forEach((particle) => particle.warp());
+    }
   }
   const effect = new Effect(canvas.width, canvas.height);
   effect.init(ctx);
-  // console.log(effect);
+
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     effect.draw(ctx);
@@ -83,5 +105,10 @@ window.addEventListener("load", () => {
     requestAnimationFrame(animate);
   }
 
-    animate();
+  animate();
+
+  const warpButton = document.getElementById('warpButton');
+  warpButton.addEventListener('click', function () {
+    effect.warp();
+  });
 });
