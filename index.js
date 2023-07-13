@@ -27,7 +27,7 @@ window.addEventListener("load", () => {
       this.distance = 0;
       this.force = 0;
       this.angle = 0;
-      this.friction = 0.95;
+      this.friction = 0.8;
     }
 
     draw(context) {
@@ -69,7 +69,7 @@ window.addEventListener("load", () => {
       this.y = this.centerY - this.image.height * 0.5;
       this.gap = 1; //change for better resolution
       this.mouse = {
-        radius: 3000,
+        radius: 10000,
         x: undefined,
         y: undefined,
       }
