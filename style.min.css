@@ -1,60 +1,10 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{ margin: 0; padding: 0; box-sizing: border-box;
+} #canvas1{ position: absolute; } .controls{ z-index: 100;
 }
-
-#canvas1{
-    position: absolute;
-    /* top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
-    /* height: 80%;
-    width:60%; */
+#warpButton{ position: absolute; top: 30px; left: 50%; transform: translateX(-50%); font-size: 30px; padding:5px 8px; color: white; background-color: black; font-family: 'Bangers', cursive;
 }
-
-.controls{
-    z-index: 100;
-}
-#warpButton{
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 30px;
-    padding:5px 8px;
-    color: white;
-    background-color: black;
-    font-family: 'Bangers', cursive;
-}
-warpButton:hover{
-    cursor: pointer;
-    color: black;
-    background-color: white;
-}
-
-img{
-    width: 100px;
-    height: 100px;
-    
-}
-img :hover{
-    cursor: pointer;
-}
-
-.images{
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    align-items: center;
-    justify-content: center;
-    /* z-index: 10; */
-    margin: 20px;
-}
-
-/* img a{
-    align-items: center;
-} */
+warpButton:hover{ cursor: pointer; color: black; background-color: white;
+} img{ width: 100px; height: 100px; }
+img :hover{ cursor: pointer;
+} .images{ position: absolute; top: 0; left: 0; display: grid; grid-template-columns: 1fr; gap: 1rem; align-items: center; justify-content: center; margin: 20px;
+} 
